@@ -1,21 +1,3 @@
-<!-- Przykład fragmentu do wstawienia w body index.html -->
-<div id="welcome"></div>
-
-<script>
-  const nick = localStorage.getItem('playerNickname');
-  const avatarId = localStorage.getItem('playerAvatar');
-
-  if (!nick || !avatarId) {
-    // jeśli nie ma danych, wróć na start
-    window.location.href = 'start.html';
-  } else {
-    const welcomeDiv = document.getElementById('welcome');
-    welcomeDiv.innerHTML = `
-      <p>Witaj, <strong>${nick}</strong>!</p>
-      <img src="https://i.pravatar.cc/80?img=${avatarId}" alt="Twój awatar" style="border-radius:50%;"/>
-    `;
-  }
-</script>
 
 <!DOCTYPE html>
 <html lang="pl">
