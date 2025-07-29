@@ -1,95 +1,152 @@
-
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lobby - Match the Song!</title>
-  <style>
-    /* (tu Twoje style bez zmian) */
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-      background: linear-gradient(135deg, #faffb8, #ffe4e1, #a1f0ff, #baf8ba);
-      text-align: center;
-      color: #333;
-    }
-
-    header {
-      padding: 40px 20px;
-      background-color: rgba(255, 255, 255, 0.8);
-      border-bottom: 5px solid #ff9ff3;
-    }
-
-    header h1 {
-      font-size: 2.5rem;
-      color: #ff6ec7;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .lobby-box {
-      margin: 50px auto;
-      padding: 30px;
-      max-width: 400px;
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 20px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .lobby-code {
-      font-size: 2rem;
-      color: #ff6ec7;
-      font-weight: bold;
-      margin: 20px 0;
-      letter-spacing: 2px;
-    }
-
-    .button {
-      display: inline-block;
-      background: linear-gradient(45deg, #ff9ff3, #faffb8, #a1f0ff, #baf8ba);
-      border: none;
-      padding: 15px 40px;
-      margin: 10px;
-      font-size: 1.2rem;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    footer {
-      margin-top: 40px;
-      padding: 20px;
-      font-size: 0.9rem;
-      color: #555;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>🎵 Match the Song - Lobby 🎵</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background: linear-gradient(135deg, #faffb8, #ffe4e1, #a1f0ff);
+    color: #333;
+    display: flex;
+    height: 100vh;
+  }
+  .sidebar {
+    width: 280px;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 20px;
+    box-shadow: 3px 0 10px rgba(0,0,0,0.1);
+    overflow-y: auto;
+  }
+  .sidebar h2 {
+    color: #ff6ec7;
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
+  .user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+    padding: 6px 8px;
+    border-radius: 12px;
+    transition: background 0.3s;
+  }
+  .user:hover {
+    background: #ff9ff3aa;
+  }
+  .user img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin-right: 12px;
+    box-shadow: 0 0 6px #ff6ec7aa;
+  }
+  .user .name {
+    font-weight: bold;
+    font-size: 1.1rem;
+    flex-grow: 1;
+  }
+  .user .tag {
+    background: #ff6ec7;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 10px;
+  }
+  .main {
+    flex-grow: 1;
+    padding: 40px;
+    text-align: center;
+  }
+  .lobby-code-box {
+    background: rgba(255,255,255,0.9);
+    border-radius: 25px;
+    padding: 30px;
+    max-width: 420px;
+    margin: 0 auto 40px;
+    box-shadow: 0 8px 20px rgba(255,110,199,0.3);
+  }
+  .lobby-code {
+    font-size: 3rem;
+    font-weight: 900;
+    letter-spacing: 8px;
+    color: #ff4dab;
+    margin: 20px 0 30px;
+    user-select: all;
+    text-shadow: 1px 1px 3px #d437a1;
+  }
+  .button {
+    background: linear-gradient(45deg, #ff9ff3, #a1f0ff);
+    border: none;
+    padding: 16px 45px;
+    font-size: 1.3rem;
+    border-radius: 35px;
+    cursor: pointer;
+    color: #222;
+    box-shadow: 0 4px 15px rgba(255,159,243,0.8);
+    transition: 0.3s ease;
+  }
+  .button:hover {
+    box-shadow: 0 6px 25px rgba(255,159,243,1);
+  }
+  footer {
+    margin-top: 50px;
+    color: #555;
+    font-size: 0.85rem;
+  }
+</style>
 </head>
 <body>
-  <header>
-    <h1>🎵 Match the Song - Lobby 🎵</h1>
-    <p>Udostępnij kod znajomym, aby dołączyli do gry!</p>
-  </header>
 
-  <div class="lobby-box">
-    <p>Twój kod lobby:</p>
-    <div class="lobby-code" id="lobbyCode">------</div>
-    <button class="button" onclick="copyCode()">Skopiuj kod</button>
-    <br /><br />
-    <button class="button" onclick="startGame()">Start gry</button>
-  </div>
+  <aside class="sidebar">
+    <h2>👥 Gracze w lobby</h2>
+    <div id="playersList">
+      <!-- Lista graczy pojawi się tutaj -->
+    </div>
+  </aside>
 
-  <footer>
-    <p>© 2025 Match the Song</p>
-  </footer>
+  <main class="main">
+    <div class="lobby-code-box">
+      <p>Twój kod lobby:</p>
+      <div class="lobby-code" id="lobbyCode">------</div>
+      <button class="button" onclick="copyCode()">📋 Skopiuj kod</button>
+      <br /><br />
+      <button class="button" onclick="startGame()">🚀 Start gry</button>
+    </div>
+    <footer>© 2025 Match the Song</footer>
+  </main>
 
   <script>
-    // Funkcja generująca losowy kod lobby
+    // Pobierz nick i avatar z localStorage
+    const nick = localStorage.getItem('playerNickname');
+    const avatarId = localStorage.getItem('playerAvatar');
+
+    if (!nick || !avatarId) {
+      window.location.href = 'start.html';
+    }
+
+    // Na razie statyczna lista graczy - na początku host i Ty
+    // W praktyce wymaga synchronizacji sieciowej (serwer/websocket)
+    const players = [
+      {nick: nick, avatarId: avatarId, isHost: true, isYou: true},
+      {nick: 'Ania', avatarId: '2', isHost: false, isYou: false},
+      {nick: 'Kuba', avatarId: '4', isHost: false, isYou: false},
+    ];
+
+    // Wczytaj kod lobby z parametru URL
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+    let lobbyCode = getQueryParam('code');
+    if (!lobbyCode || lobbyCode.length !== 6) {
+      lobbyCode = generateLobbyCode();
+    }
+    document.getElementById('lobbyCode').textContent = lobbyCode;
+
     function generateLobbyCode() {
       const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
       let code = '';
@@ -99,32 +156,26 @@
       return code;
     }
 
-    // Funkcja do pobrania parametru z URL
-    function getQueryParam(param) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(param);
-    }
+    // Render listy graczy w sidebarze
+    const playersListDiv = document.getElementById('playersList');
+    playersListDiv.innerHTML = players.map(player => `
+      <div class="user" style="${player.isYou ? 'background:#ffd5f1;' : ''}">
+        <img src="https://i.pravatar.cc/80?img=${player.avatarId}" alt="Awatar" />
+        <div class="name">${player.nick}</div>
+        <div class="tag">${player.isHost ? 'HOST' : (player.isYou ? 'TWÓJ NICK' : '')}</div>
+      </div>
+    `).join('');
 
-    // Pobierz kod z URL albo wygeneruj nowy
-    let lobbyCode = getQueryParam('code');
-    if (!lobbyCode || lobbyCode.length !== 6) {
-      lobbyCode = generateLobbyCode();
-    }
-
-    // Wyświetl kod w elemencie
-    document.getElementById('lobbyCode').textContent = lobbyCode;
-
-    // Kopiowanie kodu do schowka
     function copyCode() {
       navigator.clipboard.writeText(lobbyCode).then(() => {
         alert("Skopiowano kod: " + lobbyCode);
       });
     }
 
-    // Placeholder start gry
     function startGame() {
-      alert("Gra się rozpocznie (logika do dodania)!");
+      alert("Start gry (tu dodaj logikę)! 🕹️");
     }
   </script>
+
 </body>
 </html>
