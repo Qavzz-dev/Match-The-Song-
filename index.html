@@ -1,115 +1,73 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Match the Song!</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Match the Song - Strona Główna</title>
   <style>
+    /* Style jak wcześniej lub uproszczone */
     body {
-      margin: 0;
-      padding: 0;
       font-family: 'Comic Sans MS', cursive, sans-serif;
-      background: linear-gradient(135deg, #ffe4e1, #a1f0ff, #faffb8, #baf8ba);
+      padding: 30px;
       text-align: center;
+      background: linear-gradient(135deg, #ffe4e1, #a1f0ff, #faffb8, #baf8ba);
       color: #333;
     }
-
-    header {
-      padding: 40px 20px;
-      background-color: rgba(255, 255, 255, 0.8);
-      border-bottom: 5px solid #ff9ff3;
-    }
-
-    header h1 {
-      font-size: 3rem;
-      color: #ff6ec7;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    p {
-      font-size: 1.3rem;
-      margin: 10px 0;
-    }
-
-    .button {
-      display: inline-block;
-      background: linear-gradient(45deg, #ff9ff3, #faffb8, #a1f0ff, #baf8ba);
-      border: none;
-      padding: 15px 40px;
-      margin: 10px;
-      font-size: 1.2rem;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .join-section {
-      margin-top: 40px;
-      padding: 20px;
-      background-color: rgba(255, 255, 255, 0.7);
-      display: inline-block;
-      border-radius: 20px;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    input[type="text"] {
-      padding: 10px;
-      font-size: 1rem;
-      border-radius: 10px;
-      border: 2px solid #ff9ff3;
+    input {
+      font-size: 18px;
+      padding: 8px;
       width: 150px;
       text-align: center;
+      border-radius: 10px;
+      border: 2px solid #ff9ff3;
     }
-
-    footer {
-      margin-top: 40px;
-      padding: 20px;
-      font-size: 0.9rem;
-      color: #555;
+    button {
+      font-size: 18px;
+      padding: 10px 20px;
+      margin-top: 15px;
+      cursor: pointer;
+      border-radius: 50px;
+      background: linear-gradient(45deg, #ff9ff3, #faffb8, #a1f0ff, #baf8ba);
+      border: none;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>🎵 Match the Song! 🎵</h1>
-    <p>Stwórz grę lub dołącz do lobby.</p>
-  </header>
+  <h1>🎵 Match the Song! 🎵</h1>
+  <p>Stwórz grę lub dołącz do istniejącego lobby.</p>
 
-  <!-- Przycisk startowy -->
-  <button class="button" onclick="startGame()">Rozpocznij grę</button>
+  <button id="createLobbyBtn">Stwórz lobby</button>
 
-  <!-- Sekcja dołączania -->
-  <div class="join-section">
-    <p>Masz kod lobby? Wpisz go poniżej:</p>
-    <input type="text" id="lobbyCode" maxlength="6" placeholder="123456">
-    <br><br>
-    <button class="button" onclick="joinLobby()">Dołącz do lobby</button>
+  <div style="margin-top: 30px;">
+    <input type="text" id="joinCode" maxlength="6" placeholder="Wpisz kod lobby" />
+    <br />
+    <button id="joinLobbyBtn" style="margin-top: 10px;">Dołącz do lobby</button>
   </div>
 
-  <footer>
-    <p>© 2025 Match the Song</p>
-  </footer>
-
   <script>
-    function startGame() {
-      // Przekierowanie do lobby.html
-      window.location.href = 'lobby.html';
+    function generateCode() {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let code = '';
+      for (let i = 0; i < 6; i++) {
+        code += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return code;
     }
 
-    function joinLobby() {
-      const code = document.getElementById("lobbyCode").value.trim();
-      if (code.length === 6) {
-        alert("Próba dołączenia do lobby o kodzie: " + code);
+    document.getElementById('createLobbyBtn').addEventListener('click', () => {
+      const newCode = generateCode();
+      // Przekierowanie do lobby.html z parametrem code
+      window.location.href = `lobby.html?code=${newCode}`;
+    });
+
+    document.getElementById('joinLobbyBtn').addEventListener('click', () => {
+      const code = document.getElementById('joinCode').value.trim().toUpperCase();
+      if (/^[A-Z0-9]{6}$/.test(code)) {
+        window.location.href = `lobby.html?code=${code}`;
       } else {
-        alert("Kod lobby musi mieć 6 cyfr!");
+        alert('Wpisz poprawny 6-znakowy kod lobby (litery lub cyfry).');
       }
-    }
+    });
   </script>
 </body>
 </html>
-
