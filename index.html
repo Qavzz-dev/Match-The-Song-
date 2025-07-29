@@ -1,92 +1,100 @@
-<!-- Przykład fragmentu do wstawienia w body index.html -->
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>🎵 Match the Song - Strona główna 🎵</title>
+<style>
+  body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background: linear-gradient(135deg, #faffb8, #a1f0ff, #ffe4e1);
+    color: #333;
+    text-align: center;
+    padding: 30px;
+  }
+  #welcome {
+    margin-bottom: 40px;
+  }
+  #welcome img {
+    border-radius: 50%;
+    box-shadow: 0 0 12px #ff6ec7;
+    margin-top: 10px;
+  }
+  button, input {
+    font-size: 18px;
+    border-radius: 25px;
+    padding: 12px 25px;
+    margin: 10px;
+    border: none;
+    outline: none;
+  }
+  button {
+    cursor: pointer;
+    background: linear-gradient(45deg, #ff9ff3, #a1f0ff);
+    box-shadow: 0 3px 10px rgba(255, 159, 243, 0.7);
+    color: #222;
+    transition: 0.3s ease;
+  }
+  button:hover {
+    box-shadow: 0 6px 20px rgba(255, 159, 243, 0.9);
+  }
+  input {
+    width: 180px;
+    text-align: center;
+    border: 2px solid #ff9ff3;
+  }
+</style>
+</head>
+<body>
+
 <div id="welcome"></div>
+
+<h2>🎲 Stwórz lobby</h2>
+<button id="createLobbyBtn">🎉 Stwórz lobby</button>
+
+<h2>🔑 Dołącz do lobby</h2>
+<input type="text" id="joinCode" maxlength="6" placeholder="Wpisz kod lobby" />
+<br />
+<button id="joinLobbyBtn">Dołącz do lobby</button>
 
 <script>
   const nick = localStorage.getItem('playerNickname');
   const avatarId = localStorage.getItem('playerAvatar');
 
   if (!nick || !avatarId) {
-    // jeśli nie ma danych, wróć na start
     window.location.href = 'start.html';
   } else {
-    const welcomeDiv = document.getElementById('welcome');
-    welcomeDiv.innerHTML = `
+    document.getElementById('welcome').innerHTML = `
       <p>Witaj, <strong>${nick}</strong>!</p>
-      <img src="https://i.pravatar.cc/80?img=${avatarId}" alt="Twój awatar" style="border-radius:50%;"/>
+      <img src="https://i.pravatar.cc/90?img=${avatarId}" alt="Twój awatar" width="90" height="90" />
     `;
   }
+
+  function generateCode() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let code = '';
+    for (let i = 0; i < 6; i++) {
+      code += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return code;
+  }
+
+  document.getElementById('createLobbyBtn').addEventListener('click', () => {
+    const newCode = generateCode();
+    window.location.href = `lobby.html?code=${newCode}`;
+  });
+
+  document.getElementById('joinLobbyBtn').addEventListener('click', () => {
+    const codeInput = document.getElementById('joinCode');
+    const code = codeInput.value.trim().toUpperCase();
+    if (/^[A-Z0-9]{6}$/.test(code)) {
+      window.location.href = `lobby.html?code=${code}`;
+    } else {
+      alert('Wpisz poprawny 6-znakowy kod lobby (litery lub cyfry).');
+      codeInput.focus();
+    }
+  });
 </script>
 
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Match the Song - Strona Główna</title>
-  <style>
-    /* Style jak wcześniej lub uproszczone */
-    body {
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-      padding: 30px;
-      text-align: center;
-      background: linear-gradient(135deg, #ffe4e1, #a1f0ff, #faffb8, #baf8ba);
-      color: #333;
-    }
-    input {
-      font-size: 18px;
-      padding: 8px;
-      width: 150px;
-      text-align: center;
-      border-radius: 10px;
-      border: 2px solid #ff9ff3;
-    }
-    button {
-      font-size: 18px;
-      padding: 10px 20px;
-      margin-top: 15px;
-      cursor: pointer;
-      border-radius: 50px;
-      background: linear-gradient(45deg, #ff9ff3, #faffb8, #a1f0ff, #baf8ba);
-      border: none;
-    }
-  </style>
-</head>
-<body>
-  <h1>🎵 Match the Song! 🎵</h1>
-  <p>Stwórz grę lub dołącz do istniejącego lobby.</p>
-
-  <button id="createLobbyBtn">Stwórz lobby</button>
-
-  <div style="margin-top: 30px;">
-    <input type="text" id="joinCode" maxlength="6" placeholder="Wpisz kod lobby" />
-    <br />
-    <button id="joinLobbyBtn" style="margin-top: 10px;">Dołącz do lobby</button>
-  </div>
-
-  <script>
-    function generateCode() {
-      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-      let code = '';
-      for (let i = 0; i < 6; i++) {
-        code += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      return code;
-    }
-
-    document.getElementById('createLobbyBtn').addEventListener('click', () => {
-      const newCode = generateCode();
-      // Przekierowanie do lobby.html z parametrem code
-      window.location.href = `lobby.html?code=${newCode}`;
-    });
-
-    document.getElementById('joinLobbyBtn').addEventListener('click', () => {
-      const code = document.getElementById('joinCode').value.trim().toUpperCase();
-      if (/^[A-Z0-9]{6}$/.test(code)) {
-        window.location.href = `lobby.html?code=${code}`;
-      } else {
-        alert('Wpisz poprawny 6-znakowy kod lobby (litery lub cyfry).');
-      }
-    });
-  </script>
 </body>
 </html>
