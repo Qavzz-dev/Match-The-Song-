@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lobby - Match the Song!</title>
   <style>
+    /* (tu Twoje style bez zmian) */
     body {
       margin: 0;
       padding: 0;
@@ -78,7 +79,7 @@
     <p>Twój kod lobby:</p>
     <div class="lobby-code" id="lobbyCode">------</div>
     <button class="button" onclick="copyCode()">Skopiuj kod</button>
-    <br><br>
+    <br /><br />
     <button class="button" onclick="startGame()">Start gry</button>
   </div>
 
@@ -97,18 +98,29 @@
       return code;
     }
 
-    // Wyświetl kod na stronie
-    document.getElementById('lobbyCode').textContent = generateLobbyCode();
+    // Funkcja do pobrania parametru z URL
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
 
-    // Funkcja kopiująca kod
+    // Pobierz kod z URL albo wygeneruj nowy
+    let lobbyCode = getQueryParam('code');
+    if (!lobbyCode || lobbyCode.length !== 6) {
+      lobbyCode = generateLobbyCode();
+    }
+
+    // Wyświetl kod w elemencie
+    document.getElementById('lobbyCode').textContent = lobbyCode;
+
+    // Kopiowanie kodu do schowka
     function copyCode() {
-      const code = document.getElementById('lobbyCode').textContent;
-      navigator.clipboard.writeText(code).then(() => {
-        alert("Skopiowano kod: " + code);
+      navigator.clipboard.writeText(lobbyCode).then(() => {
+        alert("Skopiowano kod: " + lobbyCode);
       });
     }
 
-    // Funkcja startu gry (placeholder)
+    // Placeholder start gry
     function startGame() {
       alert("Gra się rozpocznie (logika do dodania)!");
     }
