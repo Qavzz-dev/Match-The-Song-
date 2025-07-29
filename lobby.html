@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lobby - Match the Song!</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(135deg, #faffb8, #ffe4e1, #a1f0ff, #baf8ba);
+      text-align: center;
+      color: #333;
+    }
+
+    header {
+      padding: 40px 20px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-bottom: 5px solid #ff9ff3;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: #ff6ec7;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .lobby-box {
+      margin: 50px auto;
+      padding: 30px;
+      max-width: 400px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .lobby-code {
+      font-size: 2rem;
+      color: #ff6ec7;
+      font-weight: bold;
+      margin: 20px 0;
+      letter-spacing: 2px;
+    }
+
+    .button {
+      display: inline-block;
+      background: linear-gradient(45deg, #ff9ff3, #faffb8, #a1f0ff, #baf8ba);
+      border: none;
+      padding: 15px 40px;
+      margin: 10px;
+      font-size: 1.2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    footer {
+      margin-top: 40px;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎵 Match the Song - Lobby 🎵</h1>
+    <p>Udostępnij kod znajomym, aby dołączyli do gry!</p>
+  </header>
+
+  <div class="lobby-box">
+    <p>Twój kod lobby:</p>
+    <div class="lobby-code" id="lobbyCode">------</div>
+    <button class="button" onclick="copyCode()">Skopiuj kod</button>
+    <br><br>
+    <button class="button" onclick="startGame()">Start gry</button>
+  </div>
+
+  <footer>
+    <p>© 2025 Match the Song</p>
+  </footer>
+
+  <script>
+    // Funkcja generująca losowy kod lobby
+    function generateLobbyCode() {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let code = '';
+      for (let i = 0; i < 6; i++) {
+        code += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return code;
+    }
+
+    // Wyświetl kod na stronie
+    document.getElementById('lobbyCode').textContent = generateLobbyCode();
+
+    // Funkcja kopiująca kod
+    function copyCode() {
+      const code = document.getElementById('lobbyCode').textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        alert("Skopiowano kod: " + code);
+      });
+    }
+
+    // Funkcja startu gry (placeholder)
+    function startGame() {
+      alert("Gra się rozpocznie (logika do dodania)!");
+    }
+  </script>
+</body>
+</html>
