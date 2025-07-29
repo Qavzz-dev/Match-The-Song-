@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Match the Song!</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', sans-serif;
+      background: linear-gradient(135deg, #a1f0ff, #ffe4e1, #faffb8);
+      text-align: center;
+      color: #444;
+    }
+    header {
+      padding: 50px 20px;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-bottom: 4px solid #ff9ff3;
+    }
+    header h1 {
+      font-size: 3rem;
+      color: #ff6ec7;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    }
+    p {
+      font-size: 1.5rem;
+      color: #444;
+    }
+    button {
+      background: linear-gradient(45deg, #ff9ff3, #faffb8, #a1f0ff, #baf8ba);
+      border: none;
+      padding: 15px 40px;
+      font-size: 1.2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    footer {
+      margin-top: 50px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Match the Song!</h1>
+    <p>Sprawdź swoją pamięć muzyczną! 🎵</p>
+  </header>
+  <main>
+    <p>Kliknij poniżej, aby rozpocząć grę:</p>
+    <button onclick="startGame()">Rozpocznij grę</button>
+  </main>
+  <footer>
+    <p>© 2025 Match the Song</p>
+  </footer>
+
+  <script>
+    function startGame() {
+      alert("Tu zacznie się gra Match the Song! (w przyszłości dodamy gameplay)");
+    }
+  </script>
+</body>
+</html>
