@@ -3,66 +3,128 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Wybierz nick i awatar</title>
+<title>Wybierz nick i awatar 🎭</title>
 <style>
-  body { font-family: Arial, sans-serif; text-align: center; background: #f0f0f0; padding: 40px; }
-  h1 { margin-bottom: 20px; }
-  input[type="text"] { padding: 10px; font-size: 16px; width: 200px; margin-bottom: 20px; }
-  .avatars { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; }
-  .avatar { width: 80px; height: 80px; border: 3px solid transparent; border-radius: 50%; cursor: pointer; transition: border-color 0.3s; }
-  .avatar.selected { border-color: #ff6ec7; }
-  button { padding: 12px 30px; font-size: 18px; background: #ff6ec7; color: white; border: none; border-radius: 25px; cursor: pointer; }
-  button:disabled { background: #ccc; cursor: not-allowed; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(120deg, #ffe4e1, #a1f0ff);
+    text-align: center;
+    padding: 50px 20px;
+    color: #333;
+  }
+  h1 {
+    font-size: 2.8rem;
+    margin-bottom: 30px;
+    color: #ff4dab;
+    text-shadow: 1px 1px 3px #d437a1;
+  }
+  input[type="text"] {
+    font-size: 18px;
+    padding: 12px;
+    width: 220px;
+    border-radius: 15px;
+    border: 2px solid #ff4dab;
+    text-align: center;
+    margin-bottom: 30px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  input[type="text"]:focus {
+    border-color: #6c00b0;
+  }
+  .avatars {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 35px;
+  }
+  .avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    cursor: pointer;
+    box-shadow: 0 0 6px #ffa3e1;
+    transition: border-color 0.4s ease;
+  }
+  .avatar:hover {
+    border-color: #ff4dab;
+  }
+  .avatar.selected {
+    border-color: #6c00b0;
+    box-shadow: 0 0 12px #6c00b0;
+  }
+  button {
+    background: linear-gradient(90deg, #ff4dab, #6c00b0);
+    border: none;
+    padding: 14px 40px;
+    font-size: 20px;
+    border-radius: 30px;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(108,0,176,0.6);
+    transition: background 0.4s ease;
+  }
+  button:disabled {
+    background: #d1b3d8;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  button:hover:not(:disabled) {
+    background: linear-gradient(90deg, #6c00b0, #ff4dab);
+  }
 </style>
 </head>
 <body>
-  <h1>Wybierz swój nick i awatar</h1>
 
-  <input type="text" id="nickname" placeholder="Wpisz swój nick" maxlength="20" />
+<h1>🎭 Wybierz swój nick i awatar 🎭</h1>
 
-  <div class="avatars" id="avatars">
-    <img src="https://i.pravatar.cc/80?img=1" alt="Avatar 1" class="avatar" data-avatar="1" />
-    <img src="https://i.pravatar.cc/80?img=2" alt="Avatar 2" class="avatar" data-avatar="2" />
-    <img src="https://i.pravatar.cc/80?img=3" alt="Avatar 3" class="avatar" data-avatar="3" />
-    <img src="https://i.pravatar.cc/80?img=4" alt="Avatar 4" class="avatar" data-avatar="4" />
-    <img src="https://i.pravatar.cc/80?img=5" alt="Avatar 5" class="avatar" data-avatar="5" />
-  </div>
+<input id="nickname" placeholder="Wpisz swój nick" maxlength="20" autocomplete="off" />
 
-  <button id="startBtn" disabled>Zacznij grę</button>
+<div class="avatars" id="avatars">
+  <img src="https://i.pravatar.cc/90?img=1" alt="Avatar 1" class="avatar" data-avatar="1" />
+  <img src="https://i.pravatar.cc/90?img=2" alt="Avatar 2" class="avatar" data-avatar="2" />
+  <img src="https://i.pravatar.cc/90?img=3" alt="Avatar 3" class="avatar" data-avatar="3" />
+  <img src="https://i.pravatar.cc/90?img=4" alt="Avatar 4" class="avatar" data-avatar="4" />
+  <img src="https://i.pravatar.cc/90?img=5" alt="Avatar 5" class="avatar" data-avatar="5" />
+</div>
 
-  <script>
-    const nicknameInput = document.getElementById('nickname');
-    const avatars = document.querySelectorAll('.avatar');
-    const startBtn = document.getElementById('startBtn');
+<button id="startBtn" disabled>🚀 Zacznij grę!</button>
 
-    let selectedAvatar = null;
+<script>
+  const nicknameInput = document.getElementById('nickname');
+  const avatars = document.querySelectorAll('.avatar');
+  const startBtn = document.getElementById('startBtn');
 
-    avatars.forEach(avatar => {
-      avatar.addEventListener('click', () => {
-        avatars.forEach(a => a.classList.remove('selected'));
-        avatar.classList.add('selected');
-        selectedAvatar = avatar.getAttribute('data-avatar');
-        checkReady();
-      });
+  let selectedAvatar = null;
+
+  avatars.forEach(avatar => {
+    avatar.addEventListener('click', () => {
+      avatars.forEach(a => a.classList.remove('selected'));
+      avatar.classList.add('selected');
+      selectedAvatar = avatar.getAttribute('data-avatar');
+      checkReady();
     });
+  });
 
-    function checkReady() {
-      const nick = nicknameInput.value.trim();
-      startBtn.disabled = !(nick && selectedAvatar);
+  function checkReady() {
+    const nick = nicknameInput.value.trim();
+    startBtn.disabled = !(nick && selectedAvatar);
+  }
+
+  nicknameInput.addEventListener('input', checkReady);
+
+  startBtn.addEventListener('click', () => {
+    const nick = nicknameInput.value.trim();
+    if (!nick || !selectedAvatar) {
+      alert('Proszę wpisz nick i wybierz awatar!');
+      return;
     }
+    localStorage.setItem('playerNickname', nick);
+    localStorage.setItem('playerAvatar', selectedAvatar);
+    window.location.href = 'index.html';
+  });
+</script>
 
-    nicknameInput.addEventListener('input', checkReady);
-
-    startBtn.addEventListener('click', () => {
-      const nick = nicknameInput.value.trim();
-      if (!nick || !selectedAvatar) {
-        alert('Wpisz nick i wybierz awatar!');
-        return;
-      }
-      localStorage.setItem('playerNickname', nick);
-      localStorage.setItem('playerAvatar', selectedAvatar);
-      window.location.href = 'index.html';
-    });
-  </script>
 </body>
 </html>
